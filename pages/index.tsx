@@ -5,9 +5,10 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 import styles from '../styles/Home.module.css'
 import UrlTable from "../components/url-table/url-table";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {UrlItem} from "../types/url-type";
 import {isUrlValid} from "../utils/utils";
+import axios from "axios";
 
 const item: UrlItem = {
     id: 'ttt',
@@ -17,7 +18,17 @@ const item: UrlItem = {
 }
 
 export default function Home() {
-    const [urls] = useState([item]);
+    const [urls, setUrls] = useState([item]);
+
+    useEffect( () => {
+        async function fetchData() {
+            const res = await axios.get('/api/all-urls');
+            console.log('res data', res.data.entriesData);
+            setUrls(res.data.entriesData);
+        }
+        fetchData();
+    }, []);
+
     const handleOnChange = (ev) => {
         const { value } = ev.target;
         // validate url
