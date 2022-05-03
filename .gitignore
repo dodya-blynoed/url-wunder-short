@@ -31,3 +31,4 @@ yarn-error.log*
 # vercel
 .vercel
 !/utils/db/db-pk.json
+!/utils/tinyurl-api/token.json

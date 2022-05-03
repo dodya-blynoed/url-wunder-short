@@ -1,26 +1,39 @@
-import db from '../../../utils/db';
+import db from '../../../utils/db'
+
+const TINY_URL = 'https://tinyurl.com/'
 
 export default async (req, res) => {
-    const { id } = req.query;
+    const { id } = req.query
+    console.log('req.body', req.body)
 
     try {
-        if (req.method === 'PUT') {
-            await db.collection('short-url').doc(id).update({
+        if (req.method === 'POST') {
+            console.log('data on post', req.body)
+            await db.collection('short-url').add({
                 ...req.body,
-                updated: new Date().toISOString(),
-            });
+                date: new Date().toISOString(),
+            })
+        }
+        if (req.method === 'PUT') {
+            await db
+                .collection('short-url')
+                .doc(id)
+                .update({
+                    shortedUrl: TINY_URL + req.body.shortedUrl,
+                    updated: new Date().toISOString(),
+                })
         } else if (req.method === 'GET') {
-            const doc = await db.collection('short-url').doc(id).get();
+            const doc = await db.collection('short-url').doc(id).get()
             if (!doc.exists) {
-                res.status(404).end();
+                res.status(404).end()
             } else {
-                res.status(200).json(doc.data());
+                res.status(200).json(doc.data())
             }
         } else if (req.method === 'DELETE') {
-            await db.collection('short-url').doc(id).delete();
+            await db.collection('short-url').doc(id).delete()
         }
-        res.status(200).end();
+        res.status(200).end()
     } catch (e) {
-        res.status(400).end();
+        res.status(400).end()
     }
 }

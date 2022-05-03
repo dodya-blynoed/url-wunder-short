@@ -1,18 +1,17 @@
-import db from '../../utils/db';
+import db from '../../utils/db'
 
 export default async (req, res) => {
     try {
-        const entries = await db.collection('short-url').get();
+        const entries = await db.collection('short-url').get()
 
-        const entriesData = entries.docs.map(entry =>{
-            console.log('entry id', entry.id)
+        const entriesData = entries.docs.map((entry) => {
             return {
                 id: entry.id,
-            ...entry.data()
+                ...entry.data(),
             }
-        });
-        res.status(200).json({ entriesData });
+        })
+        res.status(200).json({ entriesData })
     } catch (e) {
-        res.status(400).end();
+        res.status(400).end()
     }
 }
