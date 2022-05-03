@@ -15,13 +15,13 @@ export default function FrontPage() {
     const [isFetching, setIsFetching] = useState(true)
 
     console.log('shouldUpdate', shouldUpdate)
-    const updateCallback = useCallback(async () => {
+    const updateTableCallback = useCallback(async () => {
         const res = await axios.get('/api/all-urls')
         setShouldUpdate(false)
         return res
     }, [])
     useEffect(() => {
-        updateCallback()
+        updateTableCallback()
             .then((res) => {
                 setUrls(res.data.entriesData)
                 setIsFetching(false)

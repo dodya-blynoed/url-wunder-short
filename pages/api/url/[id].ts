@@ -1,7 +1,5 @@
 import db from '../../../utils/db'
 
-const TINY_URL = 'https://tinyurl.com/'
-
 export default async (req, res) => {
     const { id } = req.query
     console.log('req.body', req.body)
@@ -15,13 +13,10 @@ export default async (req, res) => {
             })
         }
         if (req.method === 'PUT') {
-            await db
-                .collection('short-url')
-                .doc(id)
-                .update({
-                    shortedUrl: TINY_URL + req.body.shortedUrl,
-                    updated: new Date().toISOString(),
-                })
+            await db.collection('short-url').doc(id).update({
+                // shortedUrl: TINY_URL + req.body.shortedUrl,
+                updated: new Date().toISOString(),
+            })
         } else if (req.method === 'GET') {
             const doc = await db.collection('short-url').doc(id).get()
             if (!doc.exists) {

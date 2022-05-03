@@ -3,9 +3,8 @@ import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import TinyURL from 'tinyurl'
 
-import { isUrlValid } from '../../utils/utils'
+import { createShortedUrl, isUrlValid } from '../../utils/utils'
 
 type Props = {
     initUpdate: () => void
@@ -28,21 +27,23 @@ export default function UrlInput({ initUpdate }: Props) {
             setIsError(true)
             return
         }
-        TinyURL.shorten(value, async function (res, err) {
-            if (err) console.error(err)
-            await axios
-                .post(`/api/url/new`, {
-                    originalUrl: value,
-                    shortedUrl: res,
-                })
-                .then(() => {
-                    setIsError(false)
-                    setValue(undefined)
-                })
-                .then(() => {
-                    initUpdate()
-                })
-        })
+        createShortedUrl()
+            .then((res) => {
+                console.log('url from ', value, ' to ', res)
+                axios
+                    .post(`/api/url/new`, {
+                        originalUrl: value,
+                        shortedUrl: res,
+                    })
+                    .then(() => {
+                        setIsError(false)
+                        setValue(undefined)
+                    })
+                    .then(() => {
+                        initUpdate()
+                    })
+            })
+            .catch((err) => console.error('Error while creating new link'))
     }
     return (
         <Box component="span" sx={{ p: 2 }}>

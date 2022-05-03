@@ -10,6 +10,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 
 import { UrlItem } from '../../types/url-type'
+import { CONTEXT_ROOT } from '../../utils/constants'
 
 type Props = {
     open: boolean
@@ -18,19 +19,19 @@ type Props = {
     onSubmit: () => void
 }
 
-const TINY_URL = 'https://tinyurl.com/'
-
 export default function EditModal({ open, item, onClose, onSubmit }: Props) {
     const [value, setValue] = useState('')
     const handleSave = async () => {
+        // TinyURL.
         await axios.put(`/api/url/${item.id}`, {
             shortedUrl: value,
         })
         onSubmit()
         onClose()
     }
+    console.log('CONTEXT_ROOT', CONTEXT_ROOT)
     useEffect(() => {
-        setValue(item?.shortedUrl.split(TINY_URL)[1])
+        setValue(item?.shortedUrl.split(CONTEXT_ROOT)[1])
     }, [item])
     return (
         <Dialog open={open}>
@@ -52,7 +53,7 @@ export default function EditModal({ open, item, onClose, onSubmit }: Props) {
                     InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
-                                {TINY_URL}
+                                {CONTEXT_ROOT}
                             </InputAdornment>
                         ),
                     }}
