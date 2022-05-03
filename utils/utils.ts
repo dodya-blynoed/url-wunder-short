@@ -1,5 +1,7 @@
 import shortid from 'shortid'
 
+import { CONTEXT_ROOT } from './constants'
+
 export const isUrlValid = (url: string) => {
     try {
         return Boolean(new URL(url))
@@ -16,4 +18,8 @@ export const createShortedUrl = () => {
             reject(e)
         }
     })
+}
+
+export const getFullShortedLink = (suffix: string): string => {
+    return `${CONTEXT_ROOT}/api/link?ref=${suffix}`
 }

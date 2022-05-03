@@ -1,14 +1,16 @@
 import Button from '@mui/material/Button'
+import Link from '@mui/material/Link'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import axios from 'axios'
-import Link from 'next/link'
 import { useState } from 'react'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
 
 import { UrlItem } from '../../types/url-type'
+import { getFullShortedLink } from '../../utils/utils'
 import EditModal from '../edit-modal/edit-modal'
 
 type Props = {
@@ -19,6 +21,7 @@ type Props = {
 export default function UrlTable({ urls, initUpdate }: Props) {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false)
     const [item, setItem] = useState(undefined)
+    const [hasCopied, setHasCopied] = useState(false)
     const handleEdit = (row: UrlItem) => {
         setItem(row)
         setIsEditModalOpen(true)
@@ -65,7 +68,31 @@ export default function UrlTable({ urls, initUpdate }: Props) {
                                 {row.originalUrl}
                             </TableCell>
                             <TableCell align="right">
-                                {row.shortedUrl}
+                                <CopyToClipboard
+                                    text={row.shortedUrl}
+                                    onCopy={() => {
+                                        setHasCopied(true)
+                                        setTimeout(() => {
+                                            setHasCopied(false)
+                                        }, 2000)
+                                    }}
+                                >
+                                    <>
+                                        <Link
+                                            href={getFullShortedLink(
+                                                row.shortedUrl,
+                                            )}
+                                        >
+                                            {row.shortedUrl}
+                                        </Link>
+                                        <Button
+                                            size="small"
+                                            variant="contained"
+                                        >
+                                            {hasCopied ? 'Copied' : 'Copy'}
+                                        </Button>
+                                    </>
+                                </CopyToClipboard>
                             </TableCell>
                             <TableCell align="right">
                                 <Button
