@@ -56,7 +56,11 @@ export default function UrlInput({ initUpdate }: Props) {
                 onBlur={(e) => handleOnBlur(e)}
                 InputProps={{
                     endAdornment: (
-                        <Button size="small" onClick={handleOnChange}>
+                        <Button
+                            size="small"
+                            onClick={handleOnChange}
+                            variant="outlined"
+                        >
                             Submit
                         </Button>
                     ),

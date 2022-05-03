@@ -29,7 +29,8 @@
     "eslint-config-next": "12.1.5",
     "typescript": "^4.6.3",
     "prettier": "latest",
-    "@trivago/prettier-plugin-sort-imports": "latest"
+    "@trivago/prettier-plugin-sort-imports": "latest",
+    "junit": "latest"
   },
   "prettier": {
     "trailingComma": "all",

@@ -64,7 +64,10 @@ export default function UrlTable({ urls, initUpdate }: Props) {
                                 },
                             }}
                         >
-                            <TableCell align="right">
+                            <TableCell
+                                align="right"
+                                sx={{ maxWidth: 400, wordBreak: 'break-all' }}
+                            >
                                 {row.originalUrl}
                             </TableCell>
                             <TableCell align="right">
@@ -83,7 +86,7 @@ export default function UrlTable({ urls, initUpdate }: Props) {
                                                 row.shortedUrl,
                                             )}
                                         >
-                                            {row.shortedUrl}
+                                            {getFullShortedLink(row.shortedUrl)}
                                         </Link>
                                         <Button
                                             size="small"

@@ -4,13 +4,12 @@ import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
-import DialogTitle from '@mui/material/DialogTitle'
 import TextField from '@mui/material/TextField'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 
 import { UrlItem } from '../../types/url-type'
-import { CONTEXT_ROOT } from '../../utils/constants'
+import { CONTEXT_ROOT, CONTEXT_ROOT_LINK } from '../../utils/constants'
 
 type Props = {
     open: boolean
@@ -22,20 +21,19 @@ type Props = {
 export default function EditModal({ open, item, onClose, onSubmit }: Props) {
     const [value, setValue] = useState('')
     const handleSave = async () => {
-        // TinyURL.
+        console.log('item', value)
+
         await axios.put(`/api/url/${item.id}`, {
             shortedUrl: value,
         })
         onSubmit()
         onClose()
     }
-    console.log('CONTEXT_ROOT', CONTEXT_ROOT)
     useEffect(() => {
-        setValue(item?.shortedUrl.split(CONTEXT_ROOT)[1])
+        setValue(item?.shortedUrl)
     }, [item])
     return (
         <Dialog open={open}>
-            <DialogTitle>Edit URL</DialogTitle>
             <DialogContent>
                 <DialogContentText>
                     To edit shortened link put new value below:
@@ -53,7 +51,7 @@ export default function EditModal({ open, item, onClose, onSubmit }: Props) {
                     InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
-                                {CONTEXT_ROOT}
+                                {CONTEXT_ROOT_LINK}
                             </InputAdornment>
                         ),
                     }}

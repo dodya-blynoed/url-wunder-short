@@ -14,7 +14,7 @@ export default async (req, res) => {
         }
         if (req.method === 'PUT') {
             await db.collection('short-url').doc(id).update({
-                // shortedUrl: TINY_URL + req.body.shortedUrl,
+                shortedUrl: req.body.shortedUrl,
                 updated: new Date().toISOString(),
             })
         } else if (req.method === 'GET') {
