@@ -5,17 +5,10 @@ export default async (req, res) => {
     console.log('req.body', req.body)
 
     try {
-        if (req.method === 'POST') {
-            console.log('data on post', req.body)
-            await db.collection('short-url').add({
-                ...req.body,
-                date: new Date().toISOString(),
-            })
-        }
         if (req.method === 'PUT') {
             await db.collection('short-url').doc(id).update({
                 shortedUrl: req.body.shortedUrl,
-                updated: new Date().toISOString(),
+                updateDate: new Date().toISOString(),
             })
         } else if (req.method === 'GET') {
             const doc = await db.collection('short-url').doc(id).get()

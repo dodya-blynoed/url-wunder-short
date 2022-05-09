@@ -36,6 +36,12 @@ export default function UrlTable({ urls, initUpdate }: Props) {
         setIsEditModalOpen(false)
         setItem(undefined)
     }
+    const onLinkCopy = (text, res) => {
+        setHasCopied(true)
+        setTimeout(() => {
+            setHasCopied(false)
+        }, 2000)
+    }
     return (
         <>
             <EditModal
@@ -72,15 +78,10 @@ export default function UrlTable({ urls, initUpdate }: Props) {
                             </TableCell>
                             <TableCell align="right">
                                 <CopyToClipboard
-                                    text={row.shortedUrl}
-                                    onCopy={() => {
-                                        setHasCopied(true)
-                                        setTimeout(() => {
-                                            setHasCopied(false)
-                                        }, 2000)
-                                    }}
+                                    text={getFullShortedLink(row.shortedUrl)}
+                                    onCopy={onLinkCopy}
                                 >
-                                    <>
+                                    <span>
                                         <Link
                                             href={getFullShortedLink(
                                                 row.shortedUrl,
@@ -94,7 +95,7 @@ export default function UrlTable({ urls, initUpdate }: Props) {
                                         >
                                             {hasCopied ? 'Copied' : 'Copy'}
                                         </Button>
-                                    </>
+                                    </span>
                                 </CopyToClipboard>
                             </TableCell>
                             <TableCell align="right">

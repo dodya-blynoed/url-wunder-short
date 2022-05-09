@@ -15,6 +15,7 @@
     "firebase-admin": "^10.1.0",
     "material-ui": "latest",
     "next": "12.1.5",
+    "nivo": "latest",
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "redux-saga": "latest",
@@ -25,12 +26,14 @@
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
     "@types/node": "^17.0.25",
+    "@types/jest": "26.0.14",
     "eslint": "8.14.0",
     "eslint-config-next": "12.1.5",
     "typescript": "^4.6.3",
     "prettier": "latest",
     "@trivago/prettier-plugin-sort-imports": "latest",
-    "junit": "latest"
+    "jest": "26.4.2",
+    "ts-jest": "26.4.1"
   },
   "prettier": {
     "trailingComma": "all",

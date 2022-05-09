@@ -9,7 +9,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 
 import { UrlItem } from '../../types/url-type'
-import { CONTEXT_ROOT, CONTEXT_ROOT_LINK } from '../../utils/constants'
+import { CONTEXT_ROOT_LINK } from '../../utils/constants'
 
 type Props = {
     open: boolean

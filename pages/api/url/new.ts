@@ -5,7 +5,7 @@ export default async (req, res) => {
         console.log('data on post', req.body)
         await db.collection('short-url').add({
             ...req.body,
-            date: new Date().toISOString(),
+            createDate: new Date().toISOString(),
         })
         res.status(200).end()
     } catch (e) {

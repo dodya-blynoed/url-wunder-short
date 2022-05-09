@@ -59,7 +59,7 @@ export default function UrlInput({ initUpdate }: Props) {
                         <Button
                             size="small"
                             onClick={handleOnChange}
-                            variant="outlined"
+                            variant="text"
                         >
                             Submit
                         </Button>

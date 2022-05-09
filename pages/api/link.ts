@@ -22,7 +22,6 @@ export default async (req, res) => {
                     db.collection('short-url')
                         .doc(ref.id)
                         .update({
-                            // shortedUrl: TINY_URL + req.body.shortedUrl,
                             count: (ref.data().count || 0) + 1,
                         })
                 })

@@ -13,7 +13,7 @@ export default async (req, res) => {
         } else {
             const { id } = await db.collection('short-url').add({
                 ...req.body,
-                created: new Date().toISOString(),
+                createDate: new Date().toISOString(),
             })
             res.status(200).json({ id })
         }

@@ -21,5 +21,6 @@ export const createShortedUrl = () => {
 }
 
 export const getFullShortedLink = (suffix: string): string => {
-    return `${CONTEXT_ROOT}/api/link?ref=${suffix}`
+    const newLink = `${CONTEXT_ROOT}/api/link?ref=${suffix}`
+    if (isUrlValid(newLink)) return newLink
 }
