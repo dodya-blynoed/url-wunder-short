@@ -1,5 +1,6 @@
 import Button from '@mui/material/Button'
 import Link from '@mui/material/Link'
+import Stack from '@mui/material/Stack'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
@@ -36,11 +37,10 @@ export default function UrlTable({ urls, initUpdate }: Props) {
         setIsEditModalOpen(false)
         setItem(undefined)
     }
-    const onLinkCopy = (text, res) => {
-        setHasCopied(true)
-        setTimeout(() => {
-            setHasCopied(false)
-        }, 2000)
+
+    const getHref = (row) => {
+        console.log('creating href', row.id)
+        return getFullShortedLink(row.shortedUrl)
     }
     return (
         <>
@@ -77,26 +77,29 @@ export default function UrlTable({ urls, initUpdate }: Props) {
                                 {row.originalUrl}
                             </TableCell>
                             <TableCell align="right">
-                                <CopyToClipboard
-                                    text={getFullShortedLink(row.shortedUrl)}
-                                    onCopy={onLinkCopy}
-                                >
-                                    <span>
+                                <span>
+                                    <Stack
+                                        direction="row"
+                                        spacing={2}
+                                        alignItems="center"
+                                        justifyContent="flex-end"
+                                    >
                                         <Link
-                                            href={getFullShortedLink(
-                                                row.shortedUrl,
-                                            )}
+                                            href={getHref(row)}
+                                            target={'_blank'}
+                                            rel="noopener noreferrer"
                                         >
-                                            {getFullShortedLink(row.shortedUrl)}
+                                            {getHref(row)}
                                         </Link>
+
                                         <Button
                                             size="small"
                                             variant="contained"
                                         >
                                             {hasCopied ? 'Copied' : 'Copy'}
                                         </Button>
-                                    </span>
-                                </CopyToClipboard>
+                                    </Stack>
+                                </span>
                             </TableCell>
                             <TableCell align="right">
                                 <Button
